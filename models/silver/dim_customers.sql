@@ -2,7 +2,7 @@
 with b as ( select * from {{ ref('bronze__customers') }} )
 select
   customer_id,
-  {{ surrogate_key(['customer_id','email']) }} as customer_sk,
+  {{ dbt_utils.generate_surrogate_key(['customer_id']) }} as customer_sk,
   initcap(first_name) as first_name,
   initcap(last_name) as last_name,
   email,
