@@ -1,0 +1,29 @@
+name: 'delta_demo'
+version: '1.0'
+config-version: 2
+
+profile: 'databricks_demo'
+
+source-paths: ["models"]
+analysis-paths: []
+macro-paths: ["macros"]
+seed-paths: ["seeds"]
+snapshot-paths: ["snapshots"]
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_modules"
+
+models:
+  delta_demo:
+    +materialized: view
+    bronze:
+      +materialized: table
+      +file_format: delta
+    silver:
+      +materialized: table
+    gold:
+      +materialized: table
+
+on-run-start:
+  - "CREATE DATABASE IF NOT EXISTS analytics_demo"

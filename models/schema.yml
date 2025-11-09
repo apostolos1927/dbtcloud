@@ -1,0 +1,21 @@
+version: 2
+models:
+  - name: bronze__customers
+    columns:
+      - name: customer_id
+        tests: [not_null, unique]
+      - name: email
+        tests: [not_null, unique]
+  - name: dim_customers
+    columns:
+      - name: customer_sk
+        tests: [not_null, unique]
+  - name: fct_orders
+    columns:
+      - name: order_id
+        tests: [not_null, unique]
+      - name: customer_sk
+        tests:
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_sk]
