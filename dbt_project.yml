@@ -1,14 +1,14 @@
 name: 'delta_demo'
-version: '1.0'
+version: '1.1'
 config-version: 2
 
 profile: 'databricks_demo'
 
 source-paths: ["models"]
-analysis-paths: []
 macro-paths: ["macros"]
 seed-paths: ["seeds"]
 snapshot-paths: ["snapshots"]
+
 target-path: "target"
 clean-targets:
   - "target"
@@ -19,11 +19,22 @@ models:
     +materialized: view
     bronze:
       +materialized: table
-      +file_format: delta
+      +schema: bronze_layer
     silver:
       +materialized: table
+      +schema: silver_layer
     gold:
       +materialized: table
+      +schema: gold_layer
+
+seeds:
+  +schema: raw_data
+
+snapshots:
+  +schema: bronze_layer
 
 on-run-start:
-  - "CREATE DATABASE IF NOT EXISTS analytics_demo"
+  - "CREATE DATABASE IF NOT EXISTS raw_data"
+  - "CREATE DATABASE IF NOT EXISTS bronze_layer"
+  - "CREATE DATABASE IF NOT EXISTS silver_layer"
+  - "CREATE DATABASE IF NOT EXISTS gold_layer"
