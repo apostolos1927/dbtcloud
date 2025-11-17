@@ -1,4 +1,4 @@
-{{ config(materialized='table', file_format='delta') }}
+{{ config(materialized='incremental', unique_key='customer_id', file_format='delta') }}
 with raw as ( select * from {{ ref('customers') }} )
 select
   cast(customer_id as int) as customer_id,
@@ -9,4 +9,7 @@ select
   country,
   current_timestamp() as ingestion_ts,
   false as deleted_flag
-from raw;
+from raw
+{% if is_incremental() %}
+where signup_ts >= (select max(signup_ts) from {{ this }})
+{% endif %};

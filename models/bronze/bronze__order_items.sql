@@ -9,5 +9,5 @@ select
   current_timestamp() as ingestion_ts
 from raw
 {% if is_incremental() %}
-where order_item_id > (select coalesce(max(order_item_id),0) from {{ this }})
+where order_item_id > (select max(order_item_id) from {{ this }})
 {% endif %};
