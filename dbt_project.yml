@@ -30,9 +30,6 @@ models:
 seeds:
   +schema: raw_data
 
-snapshots:
-  +schema: bronze_layer
-
 on-run-start:
   - "CREATE DATABASE IF NOT EXISTS raw_data"
   - "CREATE DATABASE IF NOT EXISTS bronze_layer"
