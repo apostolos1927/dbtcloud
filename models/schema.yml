@@ -42,9 +42,9 @@ models:
       - name: customer_sk
         description: "Foreign key to dim_customers."
         tests:
-          # - relationships:
-          #     to: ref('dim_customers')
-          #     field: customer_sk
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_sk
           - dbt_expectations.expect_column_values_to_not_be_null
       - name: total_amount
         description: "Total order value in currency."
