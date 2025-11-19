@@ -24,14 +24,14 @@ models:
       +materialized: table
       +schema: silver_layer
     gold:
-      +materialized: table
+      # +materialized: table
       +schema: gold_layer
 
 seeds:
   +schema: raw_data
 
-# on-run-start:
-#   - "CREATE DATABASE IF NOT EXISTS dbtcloud_raw_data"
-#   - "CREATE DATABASE IF NOT EXISTS dbtcloud_bronze_layer"
-#   - "CREATE DATABASE IF NOT EXISTS dbtcloud_silver_layer"
-#   - "CREATE DATABASE IF NOT EXISTS dbtcloud_gold_layer"
+on-run-start:
+  - "CREATE DATABASE IF NOT EXISTS dbtcloud_raw_data"
+  - "CREATE DATABASE IF NOT EXISTS dbtcloud_bronze_layer"
+  - "CREATE DATABASE IF NOT EXISTS dbtcloud_silver_layer"
+  - "CREATE DATABASE IF NOT EXISTS dbtcloud_gold_layer"

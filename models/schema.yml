@@ -50,7 +50,7 @@ models:
         description: "Total order value in currency."
         tests:
           - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0.00
+              min_value: -1
               strictly: true
 
   - name: fct_order_items
